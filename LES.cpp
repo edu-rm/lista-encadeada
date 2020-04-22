@@ -16,6 +16,7 @@ typedef struct sLista{
 Lista* cria();
 void insere(Lista *lista, Elemento *pivo, int valor);
 Elemento* remove(Lista *lista, Elemento *pivo);
+Elemento* busca(Lista *lista, int dado);
 void imprime(Lista *lista);
 
 
@@ -24,11 +25,12 @@ main(){
 
 	remove(lista, lista->head);
 
-	// insere(lista,lista->head,20);
-	// insere(lista,lista->tail,30);
-	// insere(lista,lista->head->next,25);
-	remove(lista, lista->head);
-
+	insere(lista,lista->head,20);
+	insere(lista,lista->tail,30);
+	insere(lista,lista->head->next,25);
+	// remove(lista, lista->head);
+  Elemento *elemento = busca(lista, 20);
+   printf("%d\n", elemento->dado);
   imprime(lista);
 
 }
@@ -96,4 +98,18 @@ void imprime(Lista *lista){
 		printf("%i ",aux->dado);
 		aux=aux->next;
 	}
-}	
+}
+
+Elemento* busca(Lista *lista, int dado){
+  Elemento *aux =(Elemento*)malloc(sizeof(Elemento));
+  aux=lista->head;
+  int i = 0;
+  for ( i = 0; i < lista->size; i++){
+    if(aux->dado == dado){
+      return aux;
+    }
+    aux = aux->next;
+  }
+  return NULL;
+  
+}
