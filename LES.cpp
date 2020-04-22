@@ -15,12 +15,22 @@ typedef struct sLista{
 
 Lista* cria();
 void insere(Lista *lista, Elemento *pivo, int valor);
-int remove(Lista *lista, Elemento *pivo);
+Elemento* remove(Lista *lista, Elemento *pivo);
 void imprime(Lista *lista);
 
 
 main(){
   Lista *lista = cria();
+
+	remove(lista, lista->head);
+
+	// insere(lista,lista->head,20);
+	// insere(lista,lista->tail,30);
+	// insere(lista,lista->head->next,25);
+	remove(lista, lista->head);
+
+  imprime(lista);
+
 }
 
 Lista* cria(){
@@ -50,10 +60,10 @@ void insere(Lista *lista, Elemento *pivo, int valor){
   lista->size++;
 }
 
-int remove(Lista *lista, Elemento *pivo){
+Elemento* remove(Lista *lista, Elemento *pivo){
   Elemento *antigo = (Elemento*) malloc(sizeof(Elemento));
   if(lista->size == 0){
-    return 1; //retorna lista vazia 
+    return NULL; //retorna lista vazia 
   }
   if(pivo == NULL){
     antigo = lista->head;
@@ -64,7 +74,7 @@ int remove(Lista *lista, Elemento *pivo){
     }
   }else{
     if(pivo->next==NULL){
-      return 2; //retorna fim da lista
+      return NULL; //retorna fim da lista
     }
     antigo = pivo->next;
     pivo->next = pivo->next->next;
@@ -75,4 +85,15 @@ int remove(Lista *lista, Elemento *pivo){
   }
   free(antigo);
   lista->size--;
+  return antigo;
 }
+
+void imprime(Lista *lista){
+	Elemento *aux=(Elemento*)malloc(sizeof(Elemento));
+	aux=lista->head;
+	int i=0;
+	for(i=0;i<lista->size;i++){
+		printf("%i ",aux->dado);
+		aux=aux->next;
+	}
+}	
