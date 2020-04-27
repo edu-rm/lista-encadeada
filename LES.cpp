@@ -15,24 +15,25 @@ typedef struct sLista{
 
 Lista* cria();
 void insere(Lista *lista, Elemento *pivo, int valor);
-Elemento* remove(Lista *lista, Elemento *pivo);
+void remove(Lista *lista, Elemento *pivo);
 Elemento* busca(Lista *lista, int dado);
 void imprime(Lista *lista);
 
 
-main(){
+int main(){
   Lista *lista = cria();
 
-	remove(lista, lista->head);
 
 	insere(lista,lista->head,20);
 	insere(lista,lista->tail,30);
 	insere(lista,lista->head->next,25);
+  // remove(lista,NULL);
 	// remove(lista, lista->head);
-  Elemento *elemento = busca(lista, 20);
-   printf("%d\n", elemento->dado);
+  Elemento *elemento = busca(lista, 31);
+  
   imprime(lista);
 
+  return 0;
 }
 
 Lista* cria(){
@@ -62,10 +63,10 @@ void insere(Lista *lista, Elemento *pivo, int valor){
   lista->size++;
 }
 
-Elemento* remove(Lista *lista, Elemento *pivo){
+void remove(Lista *lista, Elemento *pivo){
   Elemento *antigo = (Elemento*) malloc(sizeof(Elemento));
   if(lista->size == 0){
-    return NULL; //retorna lista vazia 
+    printf("Lista vazia \n"); //retorna lista vazia 
   }
   if(pivo == NULL){
     antigo = lista->head;
@@ -76,7 +77,7 @@ Elemento* remove(Lista *lista, Elemento *pivo){
     }
   }else{
     if(pivo->next==NULL){
-      return NULL; //retorna fim da lista
+      printf("Fim da lista \n");
     }
     antigo = pivo->next;
     pivo->next = pivo->next->next;
@@ -85,17 +86,17 @@ Elemento* remove(Lista *lista, Elemento *pivo){
       lista->tail = pivo;
     }
   }
+  printf("Elemento %d Apagado \n", antigo->dado);
   free(antigo);
   lista->size--;
-  return antigo;
 }
 
 void imprime(Lista *lista){
 	Elemento *aux=(Elemento*)malloc(sizeof(Elemento));
 	aux=lista->head;
 	int i=0;
-	for(i=0;i<lista->size;i++){
-		printf("%i ",aux->dado);
+	for(i=0;i<=lista->size;i++){
+		printf("%d ",aux->dado);
 		aux=aux->next;
 	}
 }
@@ -106,10 +107,11 @@ Elemento* busca(Lista *lista, int dado){
   int i = 0;
   for ( i = 0; i < lista->size; i++){
     if(aux->dado == dado){
+      printf("Elemento %d achado na posicao %d\n", aux->dado, i);
       return aux;
     }
     aux = aux->next;
   }
-  return NULL;
-  
+  printf("Nao foi achado o valor %d dentro da lista\n",dado );
+  return NULL; 
 }
