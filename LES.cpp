@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 typedef struct sElemento{
   struct sElemento *next;
+  struct sElemento *prev;
   int dado;
 } Elemento;
 
