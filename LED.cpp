@@ -17,21 +17,24 @@ Lista* cria();
 void insere(Lista *lista, Elemento *pivo, int valor);
 void remove(Lista *lista, Elemento *pivo);
 Elemento* busca(Lista *lista, int dado);
-void imprime(Lista *lista);
+void imprimeComeco(Lista *lista);
+void imprimeFinal(Lista *lista);
 
 
 int main(){
   Lista *lista = cria();
 
-
-	insere(lista,lista->head,20);
+	insere(lista,NULL,20);
 	insere(lista,lista->tail,30);
 	insere(lista,lista->head->next,25);
-  // remove(lista,NULL);
-	// remove(lista, lista->head);
-  Elemento *elemento = busca(lista, 31);
+	// insere(lista,NULL,20);
+
+  remove(lista,NULL);
+	remove(lista, lista->head);
+  // Elemento *elemento = busca(lista, 31);
   
-  imprime(lista);
+  imprimeComeco(lista);
+  imprimeFinal(lista);
 
   return 0;
 }
@@ -46,17 +49,14 @@ Lista* cria(){
 
 void insere(Lista *lista, Elemento *pivo, int valor){
   Elemento *novo = (Elemento*)malloc(sizeof(Elemento));
-
   novo->dado = valor;
 
   if((pivo == NULL) && (lista->size != 0)){
-    
-    printf("o pivo deve ser null na inserção do primeiro elemento");
+    printf("o pivo deve ser null somente na inserção do primeiro elemento");
     exit(0);
-  
   }
 
-  if(lista->size != 0){
+  if(lista->size == 0){
 
     lista->head = novo;
     lista->tail = novo;
@@ -81,10 +81,9 @@ void insere(Lista *lista, Elemento *pivo, int valor){
 }
 
 void remove(Lista *lista, Elemento *pivo){
-  Elemento *antigo = (Elemento*) malloc(sizeof(Elemento));
-
   if((pivo != NULL) && (lista->size != 0)){
     if(pivo == lista->head){
+      lista->head = pivo->next;
       if(lista->head == NULL){
         lista->tail = NULL;
       }else {
@@ -103,34 +102,41 @@ void remove(Lista *lista, Elemento *pivo){
 
     free(pivo);
     lista->size--;
+  } 
+  if( pivo == NULL) {
+    printf("\nPor favor, passe um elemento que não seja nulo\n");
   }
 }
 
-void imprime(Lista *lista, int sentido){
+void imprimeFinal(Lista *lista){
   Elemento *aux=(Elemento*)malloc(sizeof(Elemento));
 
-  if(sentido == 1){
-	  aux=lista->head;
-	  
-    int i=0;
-	  
-    for(i=0;i<=lista->size;i++){
-		  printf("%d ",aux->dado);
-		  aux=aux->next;
-	  }
-  }else {
-    aux=lista->tail;
+  aux=lista->tail;
 
-    int i= lista->size;
-    
-    for(i=0;i >= 0;i--){
-		  printf("%d ",aux->dado);
-		  aux=aux->prev;
-	  }
+  int i;
+  printf("\nImprimindo de tras pra frente\n");
+  for(i = (lista->size - 1); i >= 0 ; i--){
+    printf("%d\n",aux->dado);
+    aux=aux->prev;
+  }
+  
+	
+} 
+
+void imprimeComeco(Lista *lista){
+  Elemento *aux=(Elemento*)malloc(sizeof(Elemento));
+
+  aux=lista->head;
+  
+  int i;
+  printf("\nImprimindo de frente para tras\n");
+	
+  for(i = 0; i < lista->size ; i++){
+    printf("%d\n",aux->dado);
+    aux=aux->next;
   }
 	
-}
-
+} 
 // Elemento* busca(Lista *lista, int dado){
 //   Elemento *aux =(Elemento*)malloc(sizeof(Elemento));
 //   aux=lista->head;
