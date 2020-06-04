@@ -29,13 +29,11 @@ int main(){
 	insere(lista,NULL,20);
 	insere(lista,lista->tail,30);
 	insere(lista,lista->head->next,25);
-	// insere(lista,NULL,20);
   buscaComeco(lista, 25);
   buscaFinal(lista, 25);
 
   remove(lista,NULL);
 	remove(lista, lista->head);
-  // Elemento *elemento = busca(lista, 31);
   
   imprimeComeco(lista);
   imprimeFinal(lista);
