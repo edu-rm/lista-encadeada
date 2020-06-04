@@ -19,7 +19,9 @@ void remove(Lista *lista, Elemento *pivo);
 Elemento* busca(Lista *lista, int dado);
 void imprimeComeco(Lista *lista);
 void imprimeFinal(Lista *lista);
-Elemento* busca(Lista *lista, int dado);
+Elemento* buscaComeco(Lista *lista, int dado);
+Elemento* buscaFinal(Lista *lista, int dado);
+
 
 int main(){
   Lista *lista = cria();
@@ -28,7 +30,9 @@ int main(){
 	insere(lista,lista->tail,30);
 	insere(lista,lista->head->next,25);
 	// insere(lista,NULL,20);
-  busca(lista, 25);
+  buscaComeco(lista, 25);
+  buscaFinal(lista, 25);
+
   remove(lista,NULL);
 	remove(lista, lista->head);
   // Elemento *elemento = busca(lista, 31);
@@ -138,7 +142,7 @@ void imprimeComeco(Lista *lista){
 	
 } 
 
-Elemento* busca(Lista *lista, int dado){
+Elemento* buscaComeco(Lista *lista, int dado){
   Elemento *aux =(Elemento*)malloc(sizeof(Elemento));
   aux=lista->head;
   for (int i = 0; i < lista->size; i++){
@@ -150,4 +154,16 @@ Elemento* busca(Lista *lista, int dado){
   }
   printf("Nao foi achado o valor %d dentro da lista\n",dado );
   return NULL; 
+}
+
+Elemento* buscaFinal(Lista *lista, int dado){
+  Elemento *aux =(Elemento*)malloc(sizeof(Elemento));
+  aux = lista->tail;
+  for(int i = (lista->size -1) ; i >= 0 ; i--){
+    if(aux->dado == dado){
+      printf("Elemento %d achado na posicao %d\n", aux->dado, i);
+      return aux;
+    }
+    aux = aux->prev;
+  }
 }
